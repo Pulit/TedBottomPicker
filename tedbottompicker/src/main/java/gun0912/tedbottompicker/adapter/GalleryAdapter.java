@@ -12,20 +12,18 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import gun0912.tedbottompicker.R;
+import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
+import gun0912.tedbottompicker.view.TedSquareFrameLayout;
+import gun0912.tedbottompicker.view.TedSquareImageView;
 
 import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
-
-import gun0912.tedbottompicker.R;
-import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
-import gun0912.tedbottompicker.view.TedSquareFrameLayout;
-import gun0912.tedbottompicker.view.TedSquareImageView;
 
 /**
  * Created by TedPark on 2016. 8. 30..
@@ -72,8 +70,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             }
 
 
-
-
             cursor = context.getApplicationContext().getContentResolver().query(uri, columns, null, null, orderBy);
             //imageCursor = sContext.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, orderBy);
 
@@ -86,7 +82,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
                     String dataIndex;
                     if (builder.mediaType == TedBottomSheetDialogFragment.BaseBuilder.MediaType.IMAGE) {
                         dataIndex = MediaStore.Images.Media.DATA;
-                    }else{
+                    } else {
                         dataIndex = MediaStore.Video.VideoColumns.DATA;
                     }
                     String imageLocation = cursor.getString(cursor.getColumnIndex(dataIndex));
@@ -167,11 +163,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             } else {
                 builder.imageProvider.onProvideImage(holder.iv_thumbnail, uri);
             }
-
-
             isSelected = selectedUriList.contains(uri);
-
-
         }
 
 

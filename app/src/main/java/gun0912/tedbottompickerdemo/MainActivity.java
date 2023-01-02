@@ -13,19 +13,17 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import gun0912.tedbottompicker.TedBottomPicker;
 import gun0912.tedbottompicker.TedRxBottomPicker;
 import io.reactivex.disposables.Disposable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,11 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPermissionGranted() {
 
-                    TedBottomPicker.with(MainActivity.this)
-                            //.setPeekHeight(getResources().getDisplayMetrics().heightPixels/2)
-                            .setSelectedUri(selectedUri)
+                    TedBottomPicker.with(MainActivity.this.getSupportFragmentManager(), "픽커이름", "끝내버려~", "비어있어~")
                             //.showVideoMedia()
-                            .setPeekHeight(1200)
                             .show(uri -> {
                                 Log.d("ted", "uri: " + uri);
                                 Log.d("ted", "uri.getPath(): " + uri.getPath());
@@ -77,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                                         .load(uri)
                                         .into(iv_image);
                             });
-
 
                 }
 
@@ -102,13 +96,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPermissionGranted() {
 
-                    TedBottomPicker.with(MainActivity.this)
+                    TedBottomPicker.with(MainActivity.this.getSupportFragmentManager(), "픽커이름", "끝내버려~", "비어있어~")
                             //.setPeekHeight(getResources().getDisplayMetrics().heightPixels/2)
-                            .setPeekHeight(1600)
-                            .showTitle(false)
-                            .setCompleteButtonText("Done")
-                            .setEmptySelectionText("No Select")
-                            .setSelectedUriList(selectedUriList)
                             .showMultiImage(uriList -> {
                                 selectedUriList = uriList;
                                 showUriList(uriList);
@@ -140,11 +129,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPermissionGranted() {
 
-                    singleImageDisposable = TedRxBottomPicker.with(MainActivity.this)
+                    singleImageDisposable = TedRxBottomPicker.with(MainActivity.this.getSupportFragmentManager(), "픽커이름", "끝내버려~", "비어있어~")
                             //.setPeekHeight(getResources().getDisplayMetrics().heightPixels/2)
-                            .setSelectedUri(selectedUri)
                             //.showVideoMedia()
-                            .setPeekHeight(1200)
                             .show()
                             .subscribe(uri -> {
                                 selectedUri = uri;
@@ -181,13 +168,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPermissionGranted() {
 
-                    multiImageDisposable = TedRxBottomPicker.with(MainActivity.this)
+                    multiImageDisposable = TedRxBottomPicker.with(MainActivity.this.getSupportFragmentManager(), "픽커이름", "끝내버려~", "비어있어~")
                             //.setPeekHeight(getResources().getDisplayMetrics().heightPixels/2)
-                            .setPeekHeight(1600)
-                            .showTitle(false)
-                            .setCompleteButtonText("Done")
-                            .setEmptySelectionText("No Select")
-                            .setSelectedUriList(selectedUriList)
                             .showMultiImage()
                             .subscribe(uris -> {
                                 selectedUriList = uris;

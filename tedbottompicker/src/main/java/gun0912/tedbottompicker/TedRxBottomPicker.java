@@ -1,40 +1,28 @@
 package gun0912.tedbottompicker;
 
 import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import io.reactivex.Single;
 
 import java.util.List;
 
-import io.reactivex.Single;
-
 public class TedRxBottomPicker extends TedBottomSheetDialogFragment {
 
-    public static Builder with(FragmentActivity fragmentActivity) {
-        return new Builder(fragmentActivity);
+    public static Builder with(FragmentManager manager, String title, String done, String empty) {
+        return new Builder(manager, title, done, empty);
     }
-
 
     public static class Builder extends BaseBuilder<Builder> {
 
-        private Builder(FragmentActivity fragmentActivity) {
-            super(fragmentActivity);
-        }
-
-        @Override
-        public Builder setOnImageSelectedListener(OnImageSelectedListener onImageSelectedListener) {
-            throw new RuntimeException("You have to use show() method. Or read usage document");
-        }
-
-        @Override
-        public Builder setOnMultiImageSelectedListener(OnMultiImageSelectedListener onMultiImageSelectedListener) {
-            throw new RuntimeException("You have to use showMultiImage() method. Or read usage document");
+        private Builder(FragmentManager manager, String title, String done, String empty) {
+            super(manager, title, done, empty);
         }
 
         public Single<Uri> show() {
             return Single.create(emitter -> {
                 onImageSelectedListener = emitter::onSuccess;
                 onErrorListener = message -> emitter.onError(new Exception(message));
-                create().show(fragmentActivity.getSupportFragmentManager());
+                create().show(fragmentManager);
             });
         }
 
@@ -42,7 +30,7 @@ public class TedRxBottomPicker extends TedBottomSheetDialogFragment {
             return Single.create(emitter -> {
                 onMultiImageSelectedListener = emitter::onSuccess;
                 onErrorListener = message -> emitter.onError(new Exception(message));
-                create().show(fragmentActivity.getSupportFragmentManager());
+                create().show(fragmentManager);
             });
         }
     }
